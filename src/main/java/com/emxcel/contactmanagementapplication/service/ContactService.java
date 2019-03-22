@@ -2,7 +2,6 @@ package com.emxcel.contactmanagementapplication.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -43,10 +42,9 @@ public class ContactService {
 
 	// Search Id
 	public Contact getById(long id) {
-		Optional<Contact> contact = contactRepository.findById(id);
-		if (!contact.isPresent())
-			throw new ContactNotFoundException("Id-" + id);
-		return contact.get();
+	Contact contact = contactRepository.findById(id).orElseThrow(()-> new ContactNotFoundException("Id-" + id));
+
+		return contact;
 	}
 
 	// view-page
